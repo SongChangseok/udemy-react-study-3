@@ -1,8 +1,7 @@
 import { useState } from "react";
-import AddUser from "./components/AddUser/AddUser";
-import Card from "./components/Card/Card";
+import AddUser from "./components/Users/AddUser";
 import { v4 } from "uuid";
-import UserList from "./components/UserList/UserList";
+import UserList from "./components/Users/UserList";
 
 function App() {
   const [userList, setUserList] = useState([]);
@@ -12,14 +11,8 @@ function App() {
 
   return (
     <div>
-      <Card>
-        <AddUser onAddUser={addUserHandler} />
-      </Card>
-      {userList.length > 0 ? (
-        <Card>
-          <UserList items={userList} />
-        </Card>
-      ) : null}
+      <AddUser onAddUser={addUserHandler} />
+      {userList.length > 0 ? <UserList items={userList} /> : null}
     </div>
   );
 }

@@ -1,11 +1,12 @@
-import Button from "../Button/Button";
+import Button from "./Button";
+import Card from "./Card";
 import styles from "./ErrorModal.module.css";
 
 const ErrorModal = ({ header, children, onClick }) => {
   return (
     <div>
       <div className={styles.backdrop} onClick={onClick} />
-      <div className={styles.modal}>
+      <Card className={styles.modal}>
         <div className={styles.header}>
           <h2>{header}</h2>
         </div>
@@ -13,7 +14,7 @@ const ErrorModal = ({ header, children, onClick }) => {
         <div className={styles.actions}>
           <Button onClick={onClick}>Okay</Button>
         </div>
-      </div>
+      </Card>
     </div>
   );
 };

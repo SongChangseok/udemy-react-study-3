@@ -1,6 +1,7 @@
 import { useState } from "react";
-import Button from "../Button/Button";
-import ErrorModal from "../ErrorModal/ErrorModal";
+import Button from "../UI/Button";
+import Card from "../UI/Card";
+import ErrorModal from "../UI/ErrorModal";
 import styles from "./AddUser.module.css";
 
 const initialUserInfo = {
@@ -29,7 +30,8 @@ const AddUser = ({ onAddUser }) => {
       setModalMsg("Please enter a valid name and age (non-empty values)");
       return;
     }
-    if (userInfo.age < 1) {
+    // 숫자로 변환
+    if (+userInfo.age < 1) {
       setIsValid(false);
       setModalMsg("Please enter a valid age (> 0)");
       return;
@@ -44,18 +46,30 @@ const AddUser = ({ onAddUser }) => {
   };
 
   return (
-    <form className={styles.input} onSubmit={submitHandler}>
-      <label>Username</label>
-      <input type="text" value={userInfo.name} onChange={nameChangeHandler} />
-      <label>Age(Years)</label>
-      <input type="number" value={userInfo.age} onChange={ageChangeHandler} />
-      <Button type="submit">Add User</Button>
-      {!isValid && (
-        <ErrorModal header="Invalid input" onClick={modalClickHandler}>
-          {modalMsg}
-        </ErrorModal>
-      )}
-    </form>
+    <Card>
+      <form className={styles.input} onSubmit={submitHandler}>
+        <label htmlFor="name">Username</label>
+        <input
+          id="name"
+          type="text"
+          value={userInfo.name}
+          onChange={nameChangeHandler}
+        />
+        <label htmlFor="age">Age(Years)</label>
+        <input
+          id="age"
+          type="number"
+          value={userInfo.age}
+          onChange={ageChangeHandler}
+        />
+        <Button type="submit">Add User</Button>
+        {!isValid && (
+          <ErrorModal header="Invalid input" onClick={modalClickHandler}>
+            {modalMsg}
+          </ErrorModal>
+        )}
+      </form>
+    </Card>
   );
 };
 
