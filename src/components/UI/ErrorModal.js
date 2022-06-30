@@ -7,13 +7,15 @@ const ErrorModal = ({ header, children, onClick }) => {
     <div>
       <div className={styles.backdrop} onClick={onClick} />
       <Card className={styles.modal}>
-        <div className={styles.header}>
+        <header className={styles.header}>
           <h2>{header}</h2>
+        </header>
+        <div className={styles.content}>
+          <p>{children}</p>
         </div>
-        <div className={styles.content}>{children}</div>
-        <div className={styles.actions}>
+        <footer className={styles.actions}>
           <Button onClick={onClick}>Okay</Button>
-        </div>
+        </footer>
       </Card>
     </div>
   );
