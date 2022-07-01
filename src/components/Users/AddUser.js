@@ -11,8 +11,7 @@ const initialUserInfo = {
 
 const AddUser = ({ onAddUser }) => {
   const [userInfo, setUserInfo] = useState(initialUserInfo);
-  const [isValid, setIsValid] = useState(true);
-  const [modalMsg, setModalMsg] = useState();
+  const [error, setError] = useState();
   const nameChangeHandler = ({ target: { value } }) => {
     setUserInfo((prev) => ({ ...prev, name: value }));
   };
@@ -26,14 +25,18 @@ const AddUser = ({ onAddUser }) => {
       userInfo.name.trimEnd().length === 0 ||
       userInfo.age.trimEnd().length === 0
     ) {
-      setIsValid(false);
-      setModalMsg("Please enter a valid name and age (non-empty values)");
+      setError({
+        title: "Invalid input",
+        message: "Please enter a valid name and age (non-empty values)"
+      });
       return;
     }
     // 숫자로 변환
     if (+userInfo.age < 1) {
-      setIsValid(false);
-      setModalMsg("Please enter a valid age (> 0)");
+      setError({
+        title: "Invalid input",
+        message: "Please enter a valid age (> 0)"
+      });
       return;
     }
 
@@ -41,35 +44,36 @@ const AddUser = ({ onAddUser }) => {
     setUserInfo(initialUserInfo);
   };
   const modalClickHandler = () => {
-    setIsValid(true);
-    setModalMsg();
+    setError();
   };
 
   return (
-    <Card>
-      <form className={styles.input} onSubmit={submitHandler}>
-        <label htmlFor="name">Username</label>
-        <input
-          id="name"
-          type="text"
-          value={userInfo.name}
-          onChange={nameChangeHandler}
-        />
-        <label htmlFor="age">Age(Years)</label>
-        <input
-          id="age"
-          type="number"
-          value={userInfo.age}
-          onChange={ageChangeHandler}
-        />
-        <Button type="submit">Add User</Button>
-        {!isValid && (
-          <ErrorModal header="Invalid input" onClick={modalClickHandler}>
-            {modalMsg}
-          </ErrorModal>
-        )}
-      </form>
-    </Card>
+    <>
+      <Card>
+        <form className={styles.input} onSubmit={submitHandler}>
+          <label htmlFor="name">Username</label>
+          <input
+            id="name"
+            type="text"
+            value={userInfo.name}
+            onChange={nameChangeHandler}
+          />
+          <label htmlFor="age">Age(Years)</label>
+          <input
+            id="age"
+            type="number"
+            value={userInfo.age}
+            onChange={ageChangeHandler}
+          />
+          <Button type="submit">Add User</Button>
+        </form>
+      </Card>
+      {error && (
+        <ErrorModal title={error.title} onClick={modalClickHandler}>
+          {error.message}
+        </ErrorModal>
+      )}
+    </>
   );
 };
 
