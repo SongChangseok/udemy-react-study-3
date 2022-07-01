@@ -1,4 +1,5 @@
 import Card from "../UI/Card";
+import User from "./User";
 import styles from "./UserList.module.css";
 
 const UserList = ({ items }) => {
@@ -6,9 +7,7 @@ const UserList = ({ items }) => {
     <Card className={styles.users}>
       <ul>
         {items.map(({ id, name, age }) => (
-          <li key={id}>
-            {name} ({age} years old)
-          </li>
+          <User key={id} name={name} age={age} />
         ))}
       </ul>
     </Card>
