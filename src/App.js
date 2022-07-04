@@ -10,10 +10,10 @@ function App() {
   };
 
   return (
-    <div>
+    <>
       <AddUser onAddUser={addUserHandler} />
       {userList.length > 0 ? <UserList items={userList} /> : null}
-    </div>
+    </>
   );
 }
 
